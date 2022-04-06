@@ -1,7 +1,19 @@
 from time import sleep
 import os
+import random
+
+def StartScreen():
+    print("PYTHON BASIC OPERATING SYSTEM")
+    print("")
+    print("Python İşletim Sistemine Hoşgeldiniz.")
+    cizgiUret(20)
 
 def LoginScreen():
+    print("""
+
+KULLANICI GİRİŞ EKRANI
+
+""")
     sys_username = "duhan"
     sys_password = "123456"
     
@@ -18,6 +30,7 @@ def LoginScreen():
         return LoginScreenError()
     else:
         print("Giriş yapıldı!")
+        print("")
 
 def LoginScreenError():
     print("")
@@ -30,24 +43,26 @@ def LoginScreenError():
 # Olay methodları (İçlerini sonradan dolduracağız)
 def StartProcess():
     print("Süreç başlıyor...");
-
+    # Devamı doldurulacak.
 def SystemCall():
     print("Sistem çağrısı yapılıyor...");
+    # Devamı doldurulacak.
     
-def ProcessEnd():
+def StopProcess():
     print("Süreç sona eriyor...");
+    # Devamı doldurulacak.
     
 
     
-# işletim sistemini kapat
+# işletim sistemininden çıkış methodu
 def ExitOS():
-    print("Python İşletim Sisteminden çıkışınız yapılıyor...")
-    cizgiUret(10)
-    sleep(3)
+    print("")
+    print("İşletim Sisteminden çıkışınız yapılıyor...")
+    cizgiUret(20)
     exit(0)
 
 
-
+# tasarım amaçlı çizgi üreten method
 def cizgiUret(cizgiSayisi):
     cizgi = "-"
     for i in range(cizgiSayisi):
@@ -56,33 +71,42 @@ def cizgiUret(cizgiSayisi):
 
 
 
-
 # MAIN KISMI
 
 # Başlangıç ekranı - Start Screen
-print("PYTHON BASIC OPERATING SYSTEM")
-print("")
-print("Python İşletim Sistemine Hoşgeldiniz.")
-
-cizgiUret(20)
+StartScreen()
 
 # Kullanıcı giriş ekranı - Login Screen
-print("""
-
-KULLANICI GİRİŞ EKRANI
-
-""")
 LoginScreen()
 
 
+# Rastgele sayı üreterek olaylarımızı çağırma işlemi
+randomNumbers=[]
+counter=0
 
-# Olaylar kısmı
-liste = [StartProcess(), SystemCall(), ProcessEnd()]
+while counter<=4:
+    # Döngüyü sonlandırabilmek için sayacımızı 1 arttırıyoruz.
+    counter = counter+1
+    # Random sayı üretiyoruz 
+    randomNumber = random.randrange(1,100) % 3
+    # Random ürettiğimiz sayıyı oluşturduğumuz listemize ekliyoruz.
+    randomNumbers.append(randomNumber)
+    
+    # Listemizdeki elemanlara göre rastgele olaylarımız gerçekleşiyor.
+    if (randomNumber==0):
+        StartProcess()
+    elif (randomNumber==1):
+        SystemCall()
+    elif (randomNumber==2):
+        StopProcess()
+    else:
+        print("HATA")
+    
+    sleep(1)
 
 
-
-# Sistemden çıkış
-#ExitOS()
+# Sistemden çıkış methodu
+ExitOS()
 
 
 
