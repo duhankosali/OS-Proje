@@ -1,20 +1,21 @@
 from time import sleep
 import os
 import random
+import enum
+
 
 def StartScreen():
     print("PYTHON BASIC OPERATING SYSTEM")
     print("")
     print("Python İşletim Sistemine Hoşgeldiniz.")
+    print("Lütfen bekleyiniz.")
     cizgiUret(20)
 
 def LoginScreen():
     print("""
-
 KULLANICI GİRİŞ EKRANI
-
 """)
-    sys_username = "duhan"
+    sys_username = "duhanenes"
     sys_password = "123456"
     
     kullanici_adi = input("Kullanıcı Adını Giriniz: ")
@@ -40,26 +41,14 @@ def LoginScreenError():
 
 
 
-# Olay methodları (İçlerini sonradan dolduracağız)
-def StartProcess():
-    print("Süreç başlıyor...");
-    # Devamı doldurulacak.
-def SystemCall():
-    print("Sistem çağrısı yapılıyor...");
-    # Devamı doldurulacak.
-    
-def StopProcess():
-    print("Süreç sona eriyor...");
-    # Devamı doldurulacak.
-    
-
-    
 # işletim sistemininden çıkış methodu
 def ExitOS():
     print("")
     print("İşletim Sisteminden çıkışınız yapılıyor...")
+    print("Lütfen bekleyiniz.")
     cizgiUret(20)
     exit(0)
+
 
 
 # tasarım amaçlı çizgi üreten method
@@ -71,43 +60,43 @@ def cizgiUret(cizgiSayisi):
 
 
 
+# Processlerimizi tutan Enum sınıfımız
+class Loglevel(enum.Enum):
+    def StartProcess():
+        print("Süreç Başlıyor")
+    def SystemCall():
+        print("Sistem çağrısı yapılıyor...")
+    def StopProcess():
+        print("Süreç sona eriyor...")
+    def TimerCut():
+        print("Zamanlayıcı kesimi...")
+        
 # MAIN KISMI
 
 # Başlangıç ekranı - Start Screen
 StartScreen()
 
-# Kullanıcı giriş ekranı - Login Screen
+# Kullanıcı giriş ekranı - Login Screen (username: duhanenes, password: 123456)
 LoginScreen()
 
 
-# Rastgele sayı üreterek olaylarımızı çağırma işlemi
-randomNumbers=[]
-counter=0
+# Processlerimizi içeren listemiz.
+liste=[Loglevel.StartProcess, Loglevel.SystemCall, Loglevel.StopProcess, Loglevel.TimerCut()]
 
-while counter<=4:
-    # Döngüyü sonlandırabilmek için sayacımızı 1 arttırıyoruz.
-    counter = counter+1
+# Processlerimizin rastgele çalışmasını sağlayan While döngüsü
+counter = 0
+while counter<=2:
+    
     # Random sayı üretiyoruz 
     randomNumber = random.randrange(1,100) % 3
-    # Random ürettiğimiz sayıyı oluşturduğumuz listemize ekliyoruz.
-    randomNumbers.append(randomNumber)
     
     # Listemizdeki elemanlara göre rastgele olaylarımız gerçekleşiyor.
-    if (randomNumber==0):
-        StartProcess()
-    elif (randomNumber==1):
-        SystemCall()
-    elif (randomNumber==2):
-        StopProcess()
-    else:
-        print("HATA")
+    liste[counter]()
+    sleep(2)
     
-    sleep(1)
+    # Döngüyü sonlandırabilmek için sayacımızı 1 arttırıyoruz.
+    counter = counter+1
 
 
 # Sistemden çıkış methodu
 ExitOS()
-
-
-
-
