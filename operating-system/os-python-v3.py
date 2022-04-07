@@ -1,5 +1,5 @@
 from time import sleep
-import os
+import sys, os
 import random
 import enum
 
@@ -47,7 +47,7 @@ def ExitOS():
     print("İşletim Sisteminden çıkışınız yapılıyor...")
     print("Lütfen bekleyiniz.")
     cizgiUret(20)
-    exit(0)
+    
 
 
 
@@ -81,19 +81,19 @@ LoginScreen()
 
 
 # Processlerimizi içeren listemiz.
-liste=[Loglevel.StartProcess, Loglevel.SystemCall, Loglevel.StopProcess, Loglevel.TimerCut()]
+liste=[Loglevel.StartProcess, Loglevel.SystemCall, Loglevel.StopProcess, Loglevel.TimerCut]
 
 # Processlerimizin rastgele çalışmasını sağlayan While döngüsü
 counter = 0
-while counter<=2:
+while counter<=5:
     
     # Random sayı üretiyoruz 
-    randomNumber = random.randrange(1,100) % 3
+    randomNumber = random.randrange(1,100) % 4
+    #print(randomNumber)
     
     # Listemizdeki elemanlara göre rastgele olaylarımız gerçekleşiyor.
-    liste[counter]()
     sleep(2)
-    
+    liste[randomNumber]()
     # Döngüyü sonlandırabilmek için sayacımızı 1 arttırıyoruz.
     counter = counter+1
 
